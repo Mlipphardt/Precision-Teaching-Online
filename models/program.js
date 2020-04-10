@@ -1,6 +1,6 @@
 module.exports = function(sequelize, DataTypes) {
   var Program = sequelize.define("Program", {
-    type: {
+    name: {
       type: DataTypes.STRING,
       allowNull: false,
       validate: {

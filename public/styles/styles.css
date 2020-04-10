@@ -1,5 +1,23 @@
 html {
   height: 100vh;
+  font-family: Georgia, "Times New Roman", Times, serif;
+}
+
+header {
+  height: 100%;
+  padding: 15px;
+}
+
+.client-button {
+  background-color: goldenrod;
+}
+
+.jumbotron {
+  height: 70vh;
+}
+
+.program-button {
+  background-color: lightgreen;
 }
 
 #background {
@@ -7,11 +25,12 @@ html {
   height: 100vh;
 }
 
-.jumbotron {
-  height: 70vh;
-}
-
 #operant-display {
   height: 250px;
   width: 250px;
+}
+
+#title {
+  font-family: Georgia, "Times New Roman", Times, serif;
+  font-weight: bolder;
 }
