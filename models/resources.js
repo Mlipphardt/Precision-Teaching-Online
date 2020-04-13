@@ -3,6 +3,10 @@ module.exports = function(sequelize, DataTypes) {
     link: {
       type: DataTypes.STRING,
       allowNull: false
+    },
+    name: {
+      type: DataTypes.STRING,
+      allowNull: false
     }
   });
 

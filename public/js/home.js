@@ -1,54 +1,22 @@
-var items = [];
-var lastImage;
+var targets = [];
 
-//Legacy image-moving function
-function nextImage() {
-  imageRoll = Math.floor(Math.random() * occupations.length);
-  if (imageRoll === lastImage) {
-    nextImage();
-  }
-  var nextImage = occupations[lastImage];
-  console.log(nextImage);
-  $("#operant-display").attr("src", nextImage);
-  lastImage = imageRoll;
+//Function to change image source randomly for trials
+function nextImageSource() {
+  var randomTarget = Math.floor(Math.random() * targets.length);
+  var nextTarget = targets[randomTarget];
+  console.log(nextTarget);
+  $("#operant-display").attr("src", nextTarget);
 }
 
-/*
-function populateClients() {
-  $.get("/api/clients").then(function(data) {
-    console.log(data);
-    for (var i = 0; i < data.length; i++) {
-      var newClient = $(
-        "<button class = 'btn bg-success mx-3 mb-5 client-button' data-id = '" +
-          data[i].id +
-          "'> " +
-          data[i].name +
-          "</button>"
-      );
-      $("#client-list").append(newClient);
-    }
-  });
+function changeTarget() {
+  $("#operant-display").attr("src", "/images/blankscreen.png");
+  setTimeout(nextImageSource, 50);
 }
-*/
 
-/*
-$(document).on("click", ".client-button", function() {
-  var id = $(this).attr("data-id");
-  $.get("/api/programs/client/" + id).then(function(data) {
-    console.log(data);
-    for (var i = 0; i < data.length; i++) {
-      var newProgram = $(
-        "<button class = 'btn bg-warning mx-3 mb-5 program-button' data-id = '" +
-          data[i].id +
-          "'> " +
-          data[i].type +
-          "</button>"
-      );
-      $("#program-list").append(newProgram);
-    }
-  });
-});
-*/
+//Function to display loading screen to demarcate targets
+function loadingScreen() {
+  $("#operant-display").attr("src", "/images/blankscreen.png");
+}
 
 //Creates buttons from api calls, appends for user.
 function populateButtons(apiPath, destination, type) {
@@ -112,8 +80,23 @@ $(document).on("click", "#cancel-button", function(event) {
   populateButtons("/api/programs/client/" + id, "#program-list", "program");
 });
 
+$(document).on("click", "#start-button", function(event) {
+  event.preventDefault();
+  $("#program-list").empty();
+  targets = [];
+  var id = $(this).attr("program-id");
+  $.get("/api/resources/program/" + id).then(function(data) {
+    for (var i = 0; i < data.length; i++) {
+      targets.push(data[i].link);
+    }
+    $("#nextImage").show();
+    $("#operant-display").show();
+    changeTarget();
+  });
+});
+
 //Moves image, part of legacy image function
-$("#nextImage").on("click", nextImage);
+$("#nextImage").on("click", changeTarget);
 
 //Calls populateButtons to create initial client selection.
 populateButtons("/api/clients", "#client-list", "client");

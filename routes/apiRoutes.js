@@ -78,9 +78,17 @@ module.exports = function(app) {
   });
 
   //Get all resources
-
   app.get("/api/resources", function(req, res) {
     db.Resource.findAll({}).then(function(dbResources) {
+      res.json(dbResources);
+    });
+  });
+
+  //Get resource by program ID
+  app.get("/api/resources/program/:id", function(req, res) {
+    db.Resource.findAll({
+      where: { ProgramId: req.params.id }
+    }).then(function(dbResources) {
       res.json(dbResources);
     });
   });
