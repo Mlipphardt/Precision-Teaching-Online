@@ -8,14 +8,10 @@ function nextImageSource() {
   $("#operant-display").attr("src", nextTarget);
 }
 
+//Displays black screen to demarcate targets, then changes target source
 function changeTarget() {
   $("#operant-display").attr("src", "/images/blankscreen.png");
   setTimeout(nextImageSource, 50);
-}
-
-//Function to display loading screen to demarcate targets
-function loadingScreen() {
-  $("#operant-display").attr("src", "/images/blankscreen.png");
 }
 
 //Creates buttons from api calls, appends for user.
@@ -92,6 +88,44 @@ $(document).on("click", "#start-button", function(event) {
     $("#nextImage").show();
     $("#operant-display").show();
     changeTarget();
+  });
+});
+
+$(document).on("click", "#update-button", function(event) {
+  $("#program-list").empty();
+  var id = $(this).attr("program-id");
+  var resourceTable = $(
+    "<table id = 'resource-table'> <tr> <th> Name </th> <th> Link </th> </tr> </table>"
+  );
+  $("#program-list").append(resourceTable);
+  $.get("/api/resources/program/" + id).then(function(data) {
+    for (var i = 0; i < data.length; i++) {
+      var newRow = $(
+        "<tr id = 'table-row-" +
+          data[i].id +
+          "'> <td>" +
+          data[i].name +
+          "</td> <td>" +
+          data[i].link +
+          "</td> <td> <button class = 'delete-resource bg-danger' data-id = " +
+          data[i].id +
+          " id = 'resource-button-" +
+          data[i].id +
+          "' > Delete </button> </td> </tr>"
+      );
+      $("#resource-table").append(newRow);
+    }
+  });
+});
+
+$(document).on("click", ".delete-resource", function(event) {
+  event.preventDefault();
+  var id = $(this).attr("data-id");
+  $.ajax({
+    url: "/api/resources/" + id,
+    type: "DELETE"
+  }).then(function() {
+    $("#table-row-" + id).remove();
   });
 });
 
