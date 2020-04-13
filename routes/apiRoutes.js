@@ -44,7 +44,7 @@ module.exports = function(app) {
   //Get all programs for a specific user
   app.get("/api/programs/client/:clientid", function(req, res) {
     db.Program.findAll({
-      include: [{ model: db.Resource }],
+      include: [{ model: db.Resource }, { model: db.Client }],
       where: { ClientId: req.params.clientid }
     }).then(function(dbPrograms) {
       res.json(dbPrograms);

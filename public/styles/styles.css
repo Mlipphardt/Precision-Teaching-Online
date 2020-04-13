@@ -16,6 +16,11 @@ header {
   height: 70vh;
 }
 
+.options-button {
+  margin: 30px;
+  padding: 5px 15px 5px 15px;
+}
+
 .program-button {
   background-color: lightgreen;
 }

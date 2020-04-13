@@ -65,17 +65,51 @@ function populateButtons(apiPath, destination, type) {
           data[i].name +
           "</button>"
       );
+      if (data[i].ClientId) {
+        $(newButton).attr("client-id", data[i].ClientId);
+      }
       $(destination).append(newButton);
     }
   });
 }
 
+function createOneButton(name, destination) {
+  var button = $(
+    "<button class = 'options-button bg-primary' id = '" +
+      name.toLowerCase() +
+      "-button'>" +
+      name +
+      "</button>"
+  );
+  $(destination).append(button);
+}
+
 $(document).on("click", ".client-button", function(event) {
   event.preventDefault();
   var id = $(this).attr("data-id");
-  console.log("Yo");
+  $("#program-list").empty();
   populateButtons("/api/programs/client/" + id, "#program-list", "program");
-  console.log("Hiya");
+});
+
+$(document).on("click", ".program-button", function(event) {
+  event.preventDefault();
+  var id = $(this).attr("data-id");
+  var clientId = $(this).attr("client-id");
+  console.log(clientId);
+  $("#program-list").empty();
+  $("#client-list").empty();
+  createOneButton("Update", "#program-list");
+  createOneButton("Start", "#program-list");
+  createOneButton("Cancel", "#program-list");
+  $(".options-button").attr({ "program-id": id, "client-id": clientId });
+});
+
+$(document).on("click", "#cancel-button", function(event) {
+  event.preventDefault();
+  var id = $(this).attr("client-id");
+  $("#program-list").empty();
+  populateButtons("/api/clients", "#client-list", "client");
+  populateButtons("/api/programs/client/" + id, "#program-list", "program");
 });
 
 //Moves image, part of legacy image function
