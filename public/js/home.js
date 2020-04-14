@@ -103,11 +103,17 @@ $(document).on("click", "#update-button", function(event) {
   );
   $("#operant-holder").append(updateForm);
   var updateButton = $(
-    "<button class = 'btn bg-primary mt-2' id = 'submit-button' data-id = '" +
+    "<button class = 'btn bg-primary mt-2 mx-3' id = 'submit-button' data-id = '" +
       id +
       "'> Submit </button>"
   );
+  var returnButton = $(
+    "<button class = 'btn bg-primary mt-2 mx-3' id = 'return-button' data-id = '" +
+      id +
+      "'> Return </button>"
+  );
   $("#operant-holder").append(updateButton);
+  $("#operant-holder").append(returnButton);
   $.get("/api/resources/program/" + id).then(function(data) {
     for (var i = 0; i < data.length; i++) {
       var newRow = $(
@@ -168,10 +174,22 @@ $(document).on("click", "#submit-button", function(event) {
             data[i].id +
             "' > Delete </button> </td> </tr>"
         );
+        $("#resource-name").val("");
+        $("#resource-link").val("");
         $("#resource-table").append(newRow);
       }
     });
   });
+});
+
+$(document).on("click", "#return-button", function(event) {
+  event.preventDefault();
+  $("#program-list").empty();
+  $("#operant-holder").empty();
+  createOneButton("Update", "#program-list");
+  createOneButton("Start", "#program-list");
+  createOneButton("Cancel", "#program-list");
+  $(".options-button").attr({ "program-id": id, "client-id": clientId });
 });
 
 //Moves image, part of legacy image function
