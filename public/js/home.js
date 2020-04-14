@@ -98,6 +98,16 @@ $(document).on("click", "#update-button", function(event) {
     "<table id = 'resource-table'> <tr> <th> Name </th> <th> Link </th> </tr> </table>"
   );
   $("#program-list").append(resourceTable);
+  var updateForm = $(
+    "<form id = 'update-form> <label for 'resource-name'> Name: </label> <input type = 'text' id = 'resource-name' class = 'm-4' name='resource-name'> <label for = 'resource-link'> Image link: </label> <input type = 'text' class = 'mx-2' id ='resource-link' name = 'resource-link'> </form>"
+  );
+  $("#operant-holder").append(updateForm);
+  var updateButton = $(
+    "<button class = 'btn bg-primary mt-2' id = 'submit-button' data-id = '" +
+      id +
+      "'> Submit </button>"
+  );
+  $("#operant-holder").append(updateButton);
   $.get("/api/resources/program/" + id).then(function(data) {
     for (var i = 0; i < data.length; i++) {
       var newRow = $(
@@ -126,6 +136,41 @@ $(document).on("click", ".delete-resource", function(event) {
     type: "DELETE"
   }).then(function() {
     $("#table-row-" + id).remove();
+  });
+});
+
+$(document).on("click", "#submit-button", function(event) {
+  event.preventDefault();
+  var id = $(this).attr("data-id");
+  var newResource = {
+    name: $("#resource-name")
+      .val()
+      .trim(),
+    link: $("#resource-link")
+      .val()
+      .trim(),
+    ProgramId: id
+  };
+  $.post("/api/resources", newResource).then(function() {
+    $("#resource-table").empty();
+    $.get("/api/resources/program/" + id).then(function(data) {
+      for (var i = 0; i < data.length; i++) {
+        var newRow = $(
+          "<tr id = 'table-row-" +
+            data[i].id +
+            "'> <td>" +
+            data[i].name +
+            "</td> <td>" +
+            data[i].link +
+            "</td> <td> <button class = 'delete-resource bg-danger' data-id = " +
+            data[i].id +
+            " id = 'resource-button-" +
+            data[i].id +
+            "' > Delete </button> </td> </tr>"
+        );
+        $("#resource-table").append(newRow);
+      }
+    });
   });
 });
 
