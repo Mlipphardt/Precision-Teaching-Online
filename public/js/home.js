@@ -34,6 +34,12 @@ function populateButtons(apiPath, destination, type) {
       }
       $(destination).append(newButton);
     }
+    var addOne = $(
+      "<button class = 'btn mx-3 mb-5 active rounded-circle bg-success' data-toggle = 'modal' data-target = '#add-modal' id = 'add-" +
+        type +
+        "'> + </button>"
+    );
+    $(destination).append(addOne);
   });
 }
 
@@ -92,6 +98,7 @@ $(document).on("click", "#start-button", function(event) {
 });
 
 $(document).on("click", "#update-button", function(event) {
+  event.preventDefault();
   $("#program-list").empty();
   var id = $(this).attr("program-id");
   var resourceTable = $(
@@ -192,8 +199,24 @@ $(document).on("click", "#return-button", function(event) {
   $(".options-button").attr({ "program-id": id, "client-id": clientId });
 });
 
+$(document).on("click", "#add-program", function(event) {
+  event.preventDefault();
+});
+
 //Moves image, part of legacy image function
 $("#nextImage").on("click", changeTarget);
+
+$(document).on("click", "#add-program", function(event) {
+  event.preventDefault();
+  var id = $(this).attr("data-id");
+  $(".modal-title").text("Add a Program");
+  var newEntryForm = $(
+    "<form id = 'entry-form' data-id = '" +
+      id +
+      "'> <label for 'program-name'> Name: </label> <input type = 'text' id = 'program-name' class = 'm-4' name='program-name'> </form>"
+  );
+  $(".modal-body").append(newEntryForm);
+});
 
 //Calls populateButtons to create initial client selection.
 populateButtons("/api/clients", "#client-list", "client");
