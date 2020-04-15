@@ -217,12 +217,28 @@ $(document).on("click", "#add-program", function(event) {
   event.preventDefault();
   var id = $(this).attr("data-id");
   $(".modal-title").text("Add a Program");
+  $(".modal-body").empty();
   var newEntryForm = $(
     "<form id = 'entry-form' data-id = '" +
       id +
       "'> <label for 'program-name'> Name: </label> <input type = 'text' id = 'program-name' class = 'm-4' name='program-name'> </form>"
   );
+  $("#add-entry-button").attr("data-id", id);
   $(".modal-body").append(newEntryForm);
+});
+
+$(document).on("click", "#add-entry-button", function(event) {
+  event.preventDefault();
+  var id = $(this).attr("data-id");
+  var newProgram = {
+    name: $("#program-name")
+      .val()
+      .trim(),
+    ClientId: id
+  };
+  $.post("/api/programs", newProgram).then(function() {
+    location.reload();
+  });
 });
 
 //Calls populateButtons to create initial client selection.
