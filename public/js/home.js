@@ -19,6 +19,8 @@ function populateButtons(apiPath, destination, type) {
   console.log("Creating buttons...");
   $.get(apiPath).then(function(data) {
     console.log(data);
+    var id = apiPath.split("/");
+    console.log(id[4]);
     for (var i = 0; i < data.length; i++) {
       var newButton = $(
         "<button class = 'btn mx-3 mb-5 " +
@@ -40,6 +42,11 @@ function populateButtons(apiPath, destination, type) {
         "'> + </button>"
     );
     $(destination).append(addOne);
+    if (type === "program") {
+      console.log("yo");
+      console.log(id[4]);
+      $("#add-program").attr("data-id", id[4]);
+    }
   });
 }
 
