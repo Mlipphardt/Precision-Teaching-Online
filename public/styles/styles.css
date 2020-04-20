@@ -1,5 +1,6 @@
-html {
-  height: 100vh;
+html,
+body {
+  height: 100%;
   font-family: Georgia, "Times New Roman", Times, serif;
 }
 
@@ -13,8 +14,7 @@ header {
 }
 
 .jumbotron {
-  height: 70vh;
-  overflow: inherit;
+  min-height: 100%;
 }
 
 .options-button {
@@ -28,7 +28,7 @@ header {
 
 #background {
   background-image: url("/images/NANOTECH-01.jpg");
-  height: 100vh;
+  min-height: 100%;
 }
 
 #operant-display {

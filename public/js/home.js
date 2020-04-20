@@ -132,10 +132,10 @@ $(document).on("click", "#update-button", function(event) {
       var newRow = $(
         "<tr id = 'table-row-" +
           data[i].id +
-          "'> <td>" +
-          data[i].name +
-          "</td> <td>" +
+          "'> <td> <img src='" +
           data[i].link +
+          "' alt = 'fluency trial target' height='50' width='50'> </td> <td>" +
+          data[i].name +
           "</td> <td> <button class = 'delete-resource bg-danger' data-id = " +
           data[i].id +
           " id = 'resource-button-" +
@@ -177,10 +177,10 @@ $(document).on("click", "#submit-button", function(event) {
         var newRow = $(
           "<tr id = 'table-row-" +
             data[i].id +
-            "'> <td>" +
-            data[i].name +
-            "</td> <td>" +
+            "'> <td> <img src='" +
             data[i].link +
+            "' alt = 'fluency trial target' height='50' width='50'> </td> <td>" +
+            data[i].name +
             "</td> <td> <button class = 'delete-resource bg-danger' data-id = " +
             data[i].id +
             " id = 'resource-button-" +
