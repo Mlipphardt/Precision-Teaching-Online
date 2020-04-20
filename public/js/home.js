@@ -4,14 +4,13 @@ var targets = [];
 function nextImageSource() {
   var randomTarget = Math.floor(Math.random() * targets.length);
   var nextTarget = targets[randomTarget];
-  console.log(nextTarget);
   $("#operant-display").attr("src", nextTarget);
 }
 
 //Displays black screen to demarcate targets, then changes target source
 function changeTarget() {
   $("#operant-display").attr("src", "/images/blankscreen.png");
-  setTimeout(nextImageSource, 50);
+  setTimeout(nextImageSource, 20);
 }
 
 //Creates buttons from api calls, appends for user.
