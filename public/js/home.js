@@ -108,7 +108,7 @@ $(document).on("click", "#update-button", function(event) {
   $("#program-list").empty();
   var id = $(this).attr("program-id");
   var resourceTable = $(
-    "<table id = 'resource-table'> <tr> <th> Name </th> <th> Link </th> </tr> </table>"
+    "<table id = 'resource-table'> <tr> <th> Image </th> <th> Name </th> </tr> </table>"
   );
   $("#program-list").append(resourceTable);
   var updateForm = $(

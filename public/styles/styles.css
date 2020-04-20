@@ -9,6 +9,11 @@ header {
   padding: 15px;
 }
 
+td,
+th {
+  padding: 20px;
+}
+
 .client-button {
   background-color: goldenrod;
 }
