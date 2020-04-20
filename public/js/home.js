@@ -203,11 +203,7 @@ $(document).on("click", "#return-button", function(event) {
   createOneButton("Update", "#program-list");
   createOneButton("Start", "#program-list");
   createOneButton("Cancel", "#program-list");
-  $(".options-button").attr({ "program-id": id, "client-id": clientId });
-});
-
-$(document).on("click", "#add-program", function(event) {
-  event.preventDefault();
+  // $(".options-button").attr({ "program-id": id, "client-id": clientId });
 });
 
 //Moves image, part of legacy image function
