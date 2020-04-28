@@ -1,14 +1,17 @@
 var targets = [];
+var nextSnd = new Audio("/correct.mp3");
 
 //Function to change image source randomly for trials
 function nextImageSource() {
   var randomTarget = Math.floor(Math.random() * targets.length);
   var nextTarget = targets[randomTarget];
   $("#operant-display").attr("src", nextTarget);
+  nextSnd.currentTime = 0;
 }
 
 //Displays black screen to demarcate targets, then changes target source
 function changeTarget() {
+  nextSnd.play();
   $("#operant-display").attr("src", "/images/blankscreen.png");
   setTimeout(nextImageSource, 20);
 }
