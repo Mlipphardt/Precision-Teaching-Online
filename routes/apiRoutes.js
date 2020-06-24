@@ -1,36 +1,36 @@
 var db = require("../models");
 
 module.exports = function(app) {
-  //Get all clients
-  app.get("/api/clients", function(req, res) {
-    db.Client.findAll({}).then(function(dbClients) {
-      res.json(dbClients);
+  //Get all Programs
+  app.get("/api/Programs", function(req, res) {
+    db.Program.findAll({}).then(function(dbPrograms) {
+      res.json(dbPrograms);
     });
   });
 
-  //Find one client by id, include programs
-  app.get("/api/client/:clientid", function(req, res) {
-    db.Client.findOne({
+  //Find one Program by id, include programs
+  app.get("/api/Program/:Programid", function(req, res) {
+    db.Program.findOne({
       include: [{ model: db.Program }],
-      where: { id: req.params.clientid }
+      where: { id: req.params.Programid }
     }).then(function(dbPrograms) {
       res.json(dbPrograms);
     });
   });
 
-  // Create a new client
-  app.post("/api/clients", function(req, res) {
-    db.Client.create(req.body).then(function(dbClients) {
-      res.json(dbClients);
+  // Create a new Program
+  app.post("/api/Programs", function(req, res) {
+    db.Program.create(req.body).then(function(dbPrograms) {
+      res.json(dbPrograms);
     });
   });
 
-  // Delete client by id
-  app.delete("/api/client/:id", function(req, res) {
+  // Delete Program by id
+  app.delete("/api/Program/:id", function(req, res) {
     db.Example.destroy({
       where: { id: req.params.id }
-    }).then(function(dbClients) {
-      res.json(dbClients);
+    }).then(function(dbPrograms) {
+      res.json(dbPrograms);
     });
   });
 
@@ -42,10 +42,10 @@ module.exports = function(app) {
   });
 
   //Get all programs for a specific user
-  app.get("/api/programs/client/:clientid", function(req, res) {
+  app.get("/api/programs/Program/:Programid", function(req, res) {
     db.Program.findAll({
-      include: [{ model: db.Resource }, { model: db.Client }],
-      where: { ClientId: req.params.clientid }
+      include: [{ model: db.Resource }, { model: db.Program }],
+      where: { ProgramId: req.params.Programid }
     }).then(function(dbPrograms) {
       res.json(dbPrograms);
     });
@@ -55,7 +55,7 @@ module.exports = function(app) {
   app.get("/api/programs/:programid", function(req, res) {
     db.Program.findOne({
       include: [{ model: db.Resource }],
-      where: { ClientId: req.params.programid }
+      where: { ProgramId: req.params.programid }
     }).then(function(dbPrograms) {
       res.json(dbPrograms);
     });
